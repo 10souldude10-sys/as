@@ -1793,14 +1793,25 @@ a { text-decoration: none; color: inherit; }
   .sidebar { 
     display: block;
     position: fixed;
-    width: 240px;
-    transform: translateX(-240px);
-    border-right: 1px solid rgba(255,255,255,0.08);
+    top: var(--topbar-h);
+    left: 0;
+    bottom: 0;
+    width: 80vw;
+    max-width: 280px;
+    transform: translateX(-100%);
+    border-right: 1px solid var(--border);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 210;
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .sidebar:not(.closed) {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
   }
   .sidebar.closed {
-    transform: translateX(-240px);
+    transform: translateX(-100%);
+    box-shadow: none;
   }
   .sidebar-overlay {
     display: block;
@@ -3005,7 +3016,7 @@ function showDash() {
 // ═══════════════════════════════════════════════════════════
 // SIDEBAR TOGGLE
 // ═══════════════════════════════════════════════════════════
-let sidebarOpen = true;
+let sidebarOpen = window.innerWidth > 768; // Mobilde kapalı başla, masaüstünde açık
 
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
@@ -3028,6 +3039,13 @@ function toggleSidebar() {
 
 // Overlay tıklanınca drawer kapat
 document.addEventListener('DOMContentLoaded', function() {
+  // Mobilde sidebar kapalı başlasın
+  if (window.innerWidth <= 768) {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) sidebar.classList.add('closed');
+    sidebarOpen = false;
+  }
+
   const overlay = document.querySelector('.sidebar-overlay');
   if (overlay) {
     overlay.addEventListener('click', function() {
