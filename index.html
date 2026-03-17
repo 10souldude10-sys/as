@@ -1917,20 +1917,6 @@ a { text-decoration: none; color: inherit; }
   .main { padding: 10px; }
 }
 
-/* Portrait only — landscape'i engelle */
-@media (orientation: landscape) and (max-height: 500px) {
-  body {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: fixed;
-    top: 100%;
-    left: 0;
-  }
-}
-
 /* ═══════════════════════════════════════
    PWA & MOBİL DİNAMİK
 ═══════════════════════════════════════ */
@@ -2060,6 +2046,45 @@ a { touch-action: manipulation; }
 }</style>
 </head>
 <body>
+
+<!-- LANDSCAPE OVERLAY -->
+<div id="landscape-overlay" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#0f0f0f;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:16px;
+  color:#fff;
+  font-family:'Manrope',sans-serif;
+  text-align:center;
+  padding:24px;
+">
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+    <rect x="2" y="5" width="14" height="20" rx="2"/>
+    <path d="M16 9h4a2 2 0 0 1 2 2v4" stroke-dasharray="4 2"/>
+    <path d="M18 17l2-2-2-2" opacity=".5"/>
+  </svg>
+  <div style="font-size:16px;font-weight:600;">Lütfen telefonu dik tutun</div>
+  <div style="font-size:13px;opacity:0.5;">Bu uygulama dikey modda kullanılır</div>
+</div>
+
+<script>
+(function() {
+  var overlay = document.getElementById('landscape-overlay');
+  function check() {
+    var isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    var isLandscape = window.innerWidth > window.innerHeight;
+    overlay.style.display = (isMobile && isLandscape) ? 'flex' : 'none';
+  }
+  window.addEventListener('resize', check);
+  window.addEventListener('orientationchange', function() { setTimeout(check, 100); });
+  check();
+})();
+</script>
 
 <!-- ═══════════════════════ AUTH ═══════════════════════ -->
 <div class="screen active" id="s-auth">
@@ -4319,11 +4344,6 @@ const searchUI = {
     }
   }
 };
-
-// Ekranı portrait modda kilitle (video hariç)
-if (screen.orientation && screen.orientation.lock) {
-  screen.orientation.lock('portrait').catch(() => {});
-}
 
 // Search UI'ı başlat
 if (document.readyState === 'loading') {
