@@ -981,33 +981,39 @@ a { text-decoration: none; color: inherit; }
 .btn-secondary:hover { background: var(--bg-3); }
 
 /* LESSON LIST */
-.lesson-list { display: flex; flex-direction: column; gap: 2px; }
+.lesson-list { display: flex; flex-direction: column; gap: 12px; }
 .lesson-row {
-  display: grid; grid-template-columns: 28px 110px 1fr auto auto;
-  align-items: center; gap: 12px;
-  padding: 8px; border-radius: var(--radius);
-  cursor: pointer; transition: background var(--transition);
-  border: none;
+  display: grid; grid-template-columns: 28px 160px 1fr auto auto;
+  align-items: center; gap: 16px;
+  padding: 16px; border-radius: 16px;
+  cursor: pointer; transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.lesson-row:hover { background: var(--bg-2); }
+.lesson-row:hover { 
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
 .lesson-row.locked { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-.lesson-row.current { background: var(--accent-dim); }
-.lr-num { font-size: 12px; color: var(--text-3); text-align: right; }
-.lr-thumb { width: 110px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; position: relative; background: var(--bg-3); display: flex; align-items: center; justify-content: center; }
+.lesson-row.current { background: linear-gradient(135deg, rgba(255,0,0,0.05), rgba(255,0,0,0.02)); border-color: rgba(255,0,0,0.2); }
+.lr-num { font-size: 13px; color: var(--text-3); text-align: right; font-weight: 600; }
+.lr-thumb { width: 160px; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; position: relative; background: var(--bg-3); display: flex; align-items: center; justify-content: center; }
 .lr-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(0,0,0,0.12); transition: opacity var(--transition); }
 .lesson-row:hover .lr-play { opacity: 1; }
-.lr-play-btn { width: 28px; height: 20px; background: rgba(255,0,0,0.9); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
-.lr-play-btn svg { width: 10px; height: 10px; fill: #fff; margin-left: 1px; }
-.lr-dur-badge { position: absolute; bottom: 3px; right: 3px; background: rgba(0,0,0,0.75); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 3px; }
+.lr-play-btn { width: 36px; height: 28px; background: rgba(255,0,0,0.9); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.lr-play-btn svg { width: 12px; height: 12px; fill: #fff; margin-left: 1px; }
+.lr-dur-badge { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.75); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
 .lr-body { min-width: 0; }
-.lr-title { font-size: 14px; font-weight: 400; margin-bottom: 2px; color: var(--text-1); }
+.lr-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--text-1); }
 .lesson-row.done .lr-title { color: var(--text-3); }
-.lr-sub { font-size: 12px; color: var(--text-3); }
-.lr-type { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--bg-2); color: var(--text-2); white-space: nowrap; flex-shrink: 0; }
-.lr-status { width: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.lr-check { width: 20px; height: 20px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; }
-.lr-check svg { width: 11px; height: 11px; fill: #fff; }
-.lr-lock svg { width: 14px; height: 14px; fill: var(--text-3); }
+.lr-sub { font-size: 13px; color: var(--text-3); }
+.lr-type { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--bg-2); color: var(--text-2); white-space: nowrap; flex-shrink: 0; }
+.lr-status { width: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.lr-check { width: 24px; height: 24px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(43,166,64,0.3); }
+.lr-check svg { width: 13px; height: 13px; fill: #fff; }
+.lr-lock svg { width: 16px; height: 16px; fill: var(--text-3); }
 
 /* ═══════════════════════════════════════════════
    LESSON PLAYER PAGE
@@ -1222,8 +1228,17 @@ a { text-decoration: none; color: inherit; }
   .filter-chip { flex-shrink: 0; }
   .video-grid { grid-template-columns: 1fr; gap: 12px; }
   .activity-grid { grid-template-columns: repeat(2,1fr) !important; gap: 8px !important; }
-  .lesson-list { gap: 6px; }
-  .lr-thumb { width: 72px; }
+  .lesson-list { gap: 12px; }
+  .lesson-row {
+    grid-template-columns: 24px 1fr auto auto;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .lr-num { font-size: 12px; }
+  .lr-thumb { width: 120px; height: 68px; border-radius: 10px; }
+  .lr-play-btn { width: 28px; height: 20px; }
+  .lr-title { font-size: 14px; }
   .main::-webkit-scrollbar { display: none; }
   
   /* Sonraki Dersler - Anasayfa gibi büyük kartlar */
