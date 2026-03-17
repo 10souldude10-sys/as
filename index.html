@@ -2043,93 +2043,7 @@ a { touch-action: manipulation; }
     margin-top: calc(56px + max(env(safe-area-inset-top), 12px));
     height: calc(100vh - 56px - max(env(safe-area-inset-top), 12px));
   }
-}
-/* ═══════════════════════════════════════
-   LANDSCAPE (Yatay) MOD
-═══════════════════════════════════════ */
-@media (max-height: 500px) and (orientation: landscape) {
-
-  /* Topbar daha ince */
-  :root { --topbar-h: 44px; }
-
-  .topbar {
-    height: 44px;
-    padding: 0 max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
-  }
-  .tb-logo-name { font-size: 17px; }
-  .tb-logo-mark { width: 28px; height: 28px; }
-  .sidebar-toggle-btn { width: 28px; height: 28px; }
-
-  /* Main sol/sağ safe area */
-  .main {
-    margin-top: 44px;
-    height: calc(100vh - 44px);
-    padding-left: max(0px, env(safe-area-inset-left));
-    padding-right: max(0px, env(safe-area-inset-right));
-  }
-
-  /* Sidebar daha dar */
-  :root { --sidebar-w: 200px; }
-  .sidebar { width: 200px; }
-
-  /* Bottom nav landscape'de gizle — yeterli yükseklik yok */
-  .mob-bottom-nav { display: none !important; }
-  .main { padding-bottom: 8px !important; }
-
-  /* Dashboard hero kompakt */
-  .dash-hero { padding: 14px 20px; margin-bottom: 16px; }
-  .dash-hero h1 { font-size: 20px; margin-bottom: 4px; }
-  .dash-hero p { font-size: 13px; margin-bottom: 10px; }
-
-  /* Ünite kartları 3-4 kolon */
-  .video-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-
-  /* Ders oynatıcı — yan yana */
-  #page-lesson .player-layout {
-    grid-template-columns: 1fr 280px;
-  }
-
-  /* Video daha kısa */
-  .player-video { margin-bottom: 12px; }
-  .player-info-card { padding: 16px; }
-  .player-title { font-size: 16px; margin-bottom: 10px; }
-
-  /* Stat kartları 4'lü */
-  .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .stat-card { padding: 14px 10px; }
-  .stat-card-val { font-size: 22px; }
-
-  /* Auth ekranı landscape */
-  .auth-form-side {
-    padding: 20px 28px;
-    max-height: 100vh;
-    overflow-y: auto;
-    justify-content: flex-start;
-  }
-  .auth-glass-logo { margin-bottom: 14px; }
-  .auth-form-header { margin-bottom: 12px; }
-  .auth-form-header h3 { font-size: 17px; }
-  .auth-lang-row { margin-bottom: 10px; }
-  .auth-tabs { margin-bottom: 10px; }
-  .form-row { margin-bottom: 8px; }
-  .auth-or { margin: 8px 0; }
-
-  /* Page padding azalt */
-  .page { padding: 14px 16px; }
-
-  /* Filter chips küçük */
-  .filter-chip { padding: 5px 12px; font-size: 12px; }
-  .filter-bar { margin-bottom: 12px; gap: 6px; }
-
-  /* Section başlık */
-  .section-title { font-size: 18px; margin-bottom: 12px; }
-
-  /* Queue liste yüksekliği */
-  .queue-panel { max-height: calc(100vh - 44px - 16px); }
-  .queue-list { max-height: calc(100vh - 44px - 80px); }
-}
-</style>
+}</style>
 </head>
 <body>
 
@@ -4391,6 +4305,11 @@ const searchUI = {
     }
   }
 };
+
+// Ekranı portrait modda kilitle (video hariç)
+if (screen.orientation && screen.orientation.lock) {
+  screen.orientation.lock('portrait').catch(() => {});
+}
 
 // Search UI'ı başlat
 if (document.readyState === 'loading') {
