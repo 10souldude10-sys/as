@@ -1917,6 +1917,20 @@ a { text-decoration: none; color: inherit; }
   .main { padding: 10px; }
 }
 
+/* Portrait only — landscape'i engelle */
+@media (orientation: landscape) and (max-height: 500px) {
+  body {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: fixed;
+    top: 100%;
+    left: 0;
+  }
+}
+
 /* ═══════════════════════════════════════
    PWA & MOBİL DİNAMİK
 ═══════════════════════════════════════ */
