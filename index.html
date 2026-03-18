@@ -3675,31 +3675,19 @@ function mobSearch(val) {
   const q = val.trim();
   searchQuery = q;
 
-  // Dashboard aktif değilse aç
+  // Dashboard aktif değilse sessizce geçiş yap — beyaz ekran olmasın
   const dash = document.getElementById('page-dash');
   if (!dash.classList.contains('active')) {
-    currentUnitId = null; currentLessonId = null;
+    // Tüm sayfaları gizle, sadece dash'i göster
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    dash.classList.add('active');
+    currentUnitId = null;
+    currentLessonId = null;
     buildSidebar();
-    showPage('page-dash');
     document.getElementById('site-footer').style.display = 'block';
   }
 
-  // Boşsa sıfırla
-  if (q.length === 0) {
-    renderDashGrid();
-    return;
-  }
-
-  // Ünite eşleşmesi varsa doğrudan oraya git
-  const lq = q.toLowerCase();
-  const matchedUnit = UNITS.find(u =>
-    u.tr.t.toLowerCase().includes(lq) ||
-    u.en.t.toLowerCase().includes(lq) ||
-    u.abbr.toLowerCase().includes(lq) ||
-    lq === String(u.id) ||
-    lq === 'unit ' + u.id || lq === 'ünite ' + u.id
-  );
-
+  // Hemen render — eş zamanlı
   renderDashGrid();
 }
 
