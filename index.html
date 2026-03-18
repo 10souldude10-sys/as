@@ -3662,21 +3662,44 @@ function openMobSearch() {
 }
 function closeMobSearch() {
   document.getElementById('mob-search-overlay').classList.remove('open');
+  // searchQuery korunuyor — sonuçlar sayfada görünmeye devam eder
+  // Sadece input temizlenirse sıfırla
+  const inputVal = document.getElementById('mob-search-input').value.trim();
+  if (!inputVal) {
+    searchQuery = '';
+    renderDashGrid();
+  }
   document.getElementById('mob-search-input').value = '';
-  searchQuery = '';
-  renderDashGrid();
 }
 function mobSearch(val) {
-  searchQuery = val.trim();
-  document.getElementById('tb-search').value = val;
+  const q = val.trim();
+  searchQuery = q;
+
+  // Dashboard aktif değilse aç
   const dash = document.getElementById('page-dash');
   if (!dash.classList.contains('active')) {
-    // showDash çağırmadan sadece sayfayı aç, searchQuery korunsun
     currentUnitId = null; currentLessonId = null;
     buildSidebar();
     showPage('page-dash');
     document.getElementById('site-footer').style.display = 'block';
   }
+
+  // Boşsa sıfırla
+  if (q.length === 0) {
+    renderDashGrid();
+    return;
+  }
+
+  // Ünite eşleşmesi varsa doğrudan oraya git
+  const lq = q.toLowerCase();
+  const matchedUnit = UNITS.find(u =>
+    u.tr.t.toLowerCase().includes(lq) ||
+    u.en.t.toLowerCase().includes(lq) ||
+    u.abbr.toLowerCase().includes(lq) ||
+    lq === String(u.id) ||
+    lq === 'unit ' + u.id || lq === 'ünite ' + u.id
+  );
+
   renderDashGrid();
 }
 
